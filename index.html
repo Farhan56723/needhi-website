@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Portal | Ethereal Dreamspace</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Playfair+Display:ital,wght@0,900;1,600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        .font-luxury { font-family: 'Playfair Display', serif; }
+        .font-sans-premium { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        .premium-gpu {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Continuous Dynamic Cosmic Candy Shifting Gradient */
+        @keyframes cosmicFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-cosmic-bg {
+            background: linear-gradient(-45deg, #ffd6e8, #bbf7d0, #bae6fd, #e0e7ff, #fbcfe8);
+            background-size: 400% 400%;
+            animation: cosmicFlow 12s ease infinite;
+        }
+        
+        /* Shudder background glitch warning layout flash */
+        .apocalypse-warn {
+            background: linear-gradient(-45deg, #ffe4e6, #fee2e2, #f1f5f9, #f8fafc) !important;
+            background-size: 400% 400% !important;
+            animation: cosmicFlow 0.3s ease infinite !important;
+        }
+
+        /* 🔄 BULLETPROOF VIEWPORT CONSTRAINT BOX FOR STICKER ROAMING */
+        @keyframes safeStickerOrbit {
+            0% { top: 12%; left: 8%; transform: scale(1) rotate(0deg); }
+            25% { top: 14%; left: 65%; transform: scale(1.05) rotate(6deg); }
+            50% { top: 68%; left: 68%; transform: scale(0.95) rotate(-6deg); }
+            75% { top: 64%; left: 10%; transform: scale(1.03) rotate(4deg); }
+            100% { top: 12%; left: 8%; transform: scale(1) rotate(0deg); }
+        }
+        .animate-constrained-sticker {
+            position: fixed;
+            animation: safeStickerOrbit 20s linear infinite;
+        }
+
+        /* Continuous gentle levitation float for the central glass card blocks */
+        @keyframes platformFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-glass-platform {
+            animation: platformFloat 5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+
+        /* Heart password protection mask rule */
+        .heart-mask {
+            -webkit-text-security: none;
+            color: #ff2a74 !important;
+            text-shadow: 0 0 15px rgba(255, 42, 116, 0.4);
+        }
+
+        /* Aesthetic Glowing Neon Borders for Cards */
+        .neon-border-glow {
+            box-shadow: 0 25px 60px rgba(244, 63, 94, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* 🔄 COMPACT SCREEN CONTAINER LIMITER FOR PERFECT VIEWPORT FIT */
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            height: 100vh;
+            max-height: 892px;
+        }
+    </style>
+</head>
+<body id="masterBody" class="animated-cosmic-bg text-slate-800 font-sans-premium min-h-screen w-full flex items-center justify-center overflow-hidden relative select-none">
+
+    <audio id="sfxPop" src="sfx/pop.wav" preload="auto"></audio>
+    <audio id="sfxError" src="sfx/error.wav" preload="auto"></audio>
+    <audio id="sfxSuccess" src="sfx/success.wav" preload="auto"></audio>
+    <audio id="sfxExplode" src="sfx/explode.wav" preload="auto"></audio>
+
+    <canvas id="touchCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-40"></canvas>
+
+    <div class="absolute top-10 left-10 w-32 h-32 bg-pink-300/20 blur-3xl rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-16 right-10 w-40 h-40 bg-sky-300/20 blur-3xl rounded-full pointer-events-none"></div>
+
+    <div id="roamingDoll" onclick="handleDynamicStickerClicks()" class="animate-constrained-sticker w-20 h-28 cursor-pointer select-none z-50 premium-gpu filter drop-shadow-[0_10px_20px_rgba(244,63,94,0.12)]">
+        <img id="mascotDynamicImg" src="images/mascot.png" class="w-full h-full object-contain" alt="Cute Mascot Doll">
+        
+        <div id="dollBubble" class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white border border-pink-100 py-1 px-3 rounded-xl shadow-md text-[9px] font-extrabold text-pink-500 tracking-wide scale-100 transition-all duration-300 whitespace-nowrap">
+            Find the core! ✨🌸
+        </div>
+    </div>
+
+    <div class="phone-container relative z-10 flex flex-col justify-center items-center p-4">
+        
+        <div id="magneticWrapper" class="w-full flex flex-col items-center justify-center relative z-20 premium-gpu animate-glass-platform py-4">
+            
+            <div id="passcodePortal" class="w-full backdrop-blur-3xl bg-white/60 rounded-[2.5rem] p-6 text-center relative z-20 premium-gpu transition-all duration-300 neon-border-glow">
+                <span class="text-[9px] font-extrabold tracking-[0.45em] text-pink-600 uppercase block mb-1">SECURITY SYNC</span>
+                <h1 class="font-luxury font-black text-2xl text-indigo-950 mb-5 tracking-tight">Decrypt Your Sky ☁️</h1>
+                
+                <div class="relative w-full mb-4">
+                    <div id="heartDisplayOverlay" class="absolute inset-0 flex items-center justify-center text-2xl font-bold tracking-[0.4em] pointer-events-none heart-mask text-center w-full z-10"></div>
+                    <input type="text" id="secretInput" pattern="[0-9]*" inputmode="numeric" maxlength="4" placeholder="••••" oninput="processHeartTextFormatting(this)"
+                        class="w-full text-center text-2xl font-bold tracking-[0.4em] py-3 bg-white/70 border-2 border-pink-100 rounded-2xl focus:outline-none focus:border-pink-400 focus:bg-white text-transparent caret-pink-500 shadow-inner placeholder-pink-200 transition-all duration-300 font-sans-premium relative z-0" />
+                </div>
+                
+                <button onclick="verifySecretCode()" class="w-full bg-gradient-to-r from-pink-400 via-rose-400 to-indigo-500 text-white font-extrabold tracking-[0.22em] text-[10px] py-4 rounded-xl shadow-md border border-white/20 premium-gpu">
+                    INITIALIZE UNIVERSE 🚀
+                </button>
+
+                <div class="mt-5 pt-3 border-t border-dashed border-pink-200/50 flex flex-col items-center">
+                    <button onclick="triggerMascotHintReveal()" class="text-[9px] font-extrabold text-indigo-500 uppercase tracking-widest hover:text-indigo-600 transition-colors flex items-center gap-1.5 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                        💡 View Hint
+                    </button>
+                    <p id="hintTextDisplay" class="text-[10px] font-bold text-pink-500/0 h-3 mt-1.5 transition-all duration-300 tracking-wide"></p>
+                </div>
+
+                <p id="errorFeedback" class="text-[9px] text-rose-500 font-extrabold mt-2 h-3 tracking-wider uppercase"></p>
+            </div>
+
+            <div id="emojiPortal" class="w-full backdrop-blur-3xl bg-white/60 rounded-[2.5rem] p-6 text-center absolute z-20 premium-gpu opacity-0 scale-75 pointer-events-none transition-all duration-500 neon-border-glow">
+                <span id="protocolLabel" class="text-[9px] font-extrabold tracking-[0.45em] text-indigo-500 uppercase block mb-1">CALIBRATION PROTOCOL</span>
+                <h2 id="gateQuestion" class="font-luxury font-black text-xl text-indigo-950 leading-snug mb-6">OMG! Ready to dive into the most magical, customized space created just for you? ✨</h2>
+                
+                <div class="flex justify-center gap-10 mb-2">
+                    <button onclick="launchUniverse(this)" id="btnSweet" class="text-5xl hover:scale-120 active:scale-90 transition-transform duration-300 p-1 filter drop-shadow-md premium-gpu">😘</button>
+                    <button onclick="processMainframeLogic(this)" id="btnGross" class="text-5xl hover:scale-120 active:scale-90 transition-transform duration-300 p-1 filter drop-shadow-md premium-gpu">🤮</button>
+                </div>
+                <p id="emojiFeedback" class="text-[10px] font-extrabold h-3 mt-3 tracking-widest uppercase transition-all duration-300"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let attempts = 0;
+        let dollTapsCount = 0;
+        let isPasswordResolved = false;
+
+        const playSFX = (id) => {
+            const audio = document.getElementById(id);
+            if (audio) { audio.currentTime = 0; audio.play().catch(e => {}); }
+        };
+
+        function processHeartTextFormatting(inputElement) {
+            inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+            const len = inputElement.value.length;
+            const overlay = document.getElementById("heartDisplayOverlay");
+            let heartString = "";
+            for (let i = 0; i < len; i++) heartString += "💖";
+            overlay.innerText = heartString;
+        }
+
+        function triggerMascotHintReveal() {
+            playSFX('sfxPop');
+            const hintBox = document.getElementById("hintTextDisplay");
+            hintBox.innerText = "Click on the sticker to get the key! ✨";
+            hintBox.className = "text-[10px] font-bold text-indigo-500 h-3 mt-1.5 transition-all duration-300 tracking-wide scale-100";
+        }
+
+        function handleDynamicStickerClicks() {
+            playSFX('sfxPop'); 
+            const targetImg = document.getElementById('mascotDynamicImg');
+            const bubble = document.getElementById("dollBubble");
+            const dollNode = document.getElementById("roamingDoll");
+            
+            gsap.fromTo(dollNode, { scale: 0.9, rotation: -8 }, { scale: 1.05, rotation: 8, duration: 0.3, ease: "back.out(1.5)" });
+
+            if (!isPasswordResolved) {
+                dollTapsCount++;
+                if (dollTapsCount === 1) {
+                    targetImg.src = "images/mascot_confused.png";
+                    bubble.innerText = "Hehe, you found me! Tap again! 😜";
+                    setTimeout(() => { targetImg.src = "images/mascot.png"; }, 1500);
+                } 
+                else if (dollTapsCount === 2) {
+                    targetImg.src = "images/mascot_confused.png";
+                    bubble.innerText = "One more tap and I'll tell you! 🤫✨";
+                    setTimeout(() => { targetImg.src = "images/mascot.png"; }, 1500);
+                } 
+                else if (dollTapsCount >= 3) {
+                    targetImg.src = "images/mascot_happy.png";
+                    bubble.innerText = "Secret Key is 2910! 🔑✨";
+                    setTimeout(() => { 
+                        targetImg.src = "images/mascot.png"; 
+                        bubble.innerText = "Find the core! ✨";
+                        dollTapsCount = 0; 
+                    }, 4000);
+                }
+            } else {
+                const choiceDialogues = [
+                    "Calibration Protocol Active! Choose wisely! 💖",
+                    "Pick the sweet emoji to access! 😘✨",
+                    "Don't click the gross emoji, or else... 🤮💀",
+                    "Choose quick, bestie! Portal is loading! ⚡"
+                ];
+                const randomIndex = Math.floor(Math.random() * choiceDialogues.length);
+                targetImg.src = "images/mascot_excited.png";
+                bubble.innerText = choiceDialogues[randomIndex];
+                setTimeout(() => { targetImg.src = "images/mascot.png"; }, 2500);
+            }
+
+            const r = dollNode.getBoundingClientRect();
+            for(let i=0; i<6; i++) touchParticles.push(new TouchSparkle(r.left + 35, r.top + 35));
+        }
+
+        function verifySecretCode() {
+            const inputField = document.getElementById('secretInput');
+            const errorBox = document.getElementById('errorFeedback');
+            const targetImg = document.getElementById('mascotDynamicImg');
+
+            if (inputField.value.trim() === '2910') {
+                playSFX('sfxPop');
+                isPasswordResolved = true;
+                
+                targetImg.src = "images/mascot_happy.png";
+                document.getElementById("dollBubble").innerText = "YAY! Access Unlocked! 😍🎉";
+
+                gsap.to("#passcodePortal", {
+                    y: 40, opacity: 0, scale: 0.8, duration: 0.4, ease: "power3.in",
+                    onComplete: () => {
+                        document.getElementById("passcodePortal").remove();
+                        const emojiCard = document.getElementById("emojiPortal");
+                        emojiCard.classList.remove("pointer-events-none", "opacity-0", "scale-75");
+                        emojiCard.classList.add("opacity-100", "scale-100", "pointer-events-auto");
+                        setTimeout(() => { targetImg.src = "images/mascot.png"; }, 1500);
+                    }
+                });
+            } else {
+                playSFX('sfxError');
+                errorBox.innerText = "ACCESS DENIED! TRY AGAIN! 🔒";
+                inputField.value = "";
+                document.getElementById("heartDisplayOverlay").innerText = ""; 
+                
+                targetImg.src = "images/mascot_sad.png";
+                document.getElementById("dollBubble").innerText = "Ugh, wrong code! 🥺";
+                
+                gsap.fromTo("#passcodePortal", { x: -10 }, { x: 10, duration: 0.04, repeat: 4, yoyo: true });
+                setTimeout(() => { targetImg.src = "images/mascot.png"; }, 2000);
+            }
+        }
+
+        function processMainframeLogic(btnElement) {
+            attempts++;
+            const questionText = document.getElementById('gateQuestion');
+            const feedbackText = document.getElementById('emojiFeedback');
+            const protocolLabel = document.getElementById('protocolLabel');
+            const targetImg = document.getElementById('mascotDynamicImg');
+
+            gsap.fromTo(btnElement, { scale: 1.2 }, { scale: 1, duration: 0.3 });
+
+            if (attempts < 4) {
+                playSFX('sfxError');
+                targetImg.src = "images/mascot_sad.png";
+                document.getElementById("dollBubble").innerText = "Nooo, click the other one! 😡";
+
+                protocolLabel.innerText = `REJECTION LOGGED // ALARM LEVEL 0${attempts}`;
+                protocolLabel.className = "text-[9px] font-extrabold tracking-[0.4em] text-rose-500 block mb-1";
+                
+                questionText.innerText = "Hey! That choice is highly illegal in our galaxy! Pick again! 🪐";
+                feedbackText.innerText = `⚠️ PROTOCOL CRASHED (${attempts}/5)`;
+                feedbackText.className = "text-[10px] text-rose-500 font-extrabold mt-3 tracking-widest";
+                
+                gsap.fromTo("#emojiPortal", { x: -10 }, { x: 10, duration: 0.04, repeat: 4, yoyo: true });
+                setTimeout(() => { targetImg.src = "images/mascot.png"; }, 1500);
+            } else {
+                playSFX('sfxExplode'); 
+                targetImg.src = "images/mascot_glitch.png";
+                document.getElementById("dollBubble").innerText = "BOOM! MATRIX CRASH! 💥";
+                
+                protocolLabel.innerText = "CRITICAL SYSTEM OVERLOAD";
+                questionText.innerText = "Kaboom! Core overload active! System self-destructing right now! 🤖💥";
+                feedbackText.innerText = "💥 REBOOTING MATRIX 💥";
+                
+                document.getElementById('masterBody').className = "apocalypse-warn min-h-screen overflow-hidden relative select-none flex flex-col justify-center items-center p-4";
+                
+                gsap.to("body", { x: 12, y: -12, duration: 0.04, repeat: 12, yoyo: true, onComplete: () => {
+                    window.location.reload();
+                }});
+            }
+        }
+
+        /* 🚗 FIXED ROUTER FORWARDING SEAMLESSLY DIRECT TO PAGE1-WELCOME.HTML */
+        function launchUniverse(btnElement) {
+            playSFX('sfxSuccess'); 
+            const targetImg = document.getElementById('mascotDynamicImg');
+            
+            targetImg.src = "images/mascot_excited.png";
+            document.getElementById("dollBubble").innerText = "Warping forward! 🥰🚀";
+            
+            gsap.to("#roamingDoll", { scale: 0, opacity: 0, filter: "blur(12px)", duration: 0.6 });
+            document.getElementById('gateQuestion').innerText = "Hold tight! Calibrating your absolute dream space right now... ✨🌌";
+
+            const rect = btnElement.getBoundingClientRect();
+            for(let i=0; i<30; i++) {
+                touchParticles.push(new TouchSparkle(rect.left + rect.width/2, rect.top + rect.height/2, '🌸'));
+                touchParticles.push(new TouchSparkle(rect.left + rect.width/2, rect.top + rect.height/2, '💖'));
+            }
+
+            gsap.to("#emojiPortal", { scale: 1.15, opacity: 0, filter: "blur(12px)", y: -30, duration: 0.6, delay: 0.4 });
+            gsap.to("body", {
+                opacity: 0, duration: 0.5, delay: 0.8,
+                onComplete: () => { window.location.href = "page1-welcome.html"; }
+            });
+        }
+
+        // --- MOBILE OPTIMIZED TOUCH SPARK TRAIL ENGINE ---
+        const touchCanvas = document.getElementById('touchCanvas');
+        const tCtx = touchCanvas.getContext('2d');
+        let touchParticles = [];
+        touchCanvas.width = window.innerWidth; touchCanvas.height = window.innerHeight;
+
+        class TouchSparkle {
+            constructor(x, y, symbol = null) {
+                this.x = x; this.y = y; this.size = Math.random() * 12 + 10;
+                this.speedX = (Math.random() - 0.5) * 4; this.speedY = (Math.random() - 0.5) * 4;
+                this.opacity = 1;
+                this.sym = symbol ? symbol : ['✨', '🌸', '🩵'][Math.floor(Math.random() * 3)];
+            }
+            update() { this.x += this.speedX; this.y += this.speedY; this.opacity -= 0.02; }
+            draw() { tCtx.save(); tCtx.globalAlpha = this.opacity; tCtx.font = `${this.size}px serif`; tCtx.fillText(this.sym, this.x, this.y); tCtx.restore(); }
+        }
+
+        window.addEventListener('mousemove', (e) => { touchParticles.push(new TouchSparkle(e.clientX, e.clientY)); });
+        window.addEventListener('touchmove', (e) => { if(e.touches.length) touchParticles.push(new TouchSparkle(e.touches[0].clientX, e.touches[0].clientY)); });
+
+        function animateTouchTrail() {
+            tCtx.clearRect(0, 0, touchCanvas.width, touchCanvas.height);
+            for (let i = 0; i < touchParticles.length; i++) {
+                touchParticles[i].update(); touchParticles[i].draw();
+                if (touchParticles[i].opacity <= 0) { touchParticles.splice(i, 1); i--; }
+            }
+            requestAnimationFrame(animateTouchTrail);
+        }
+        animateTouchTrail();
+    </script>
+</body>
+</html>
