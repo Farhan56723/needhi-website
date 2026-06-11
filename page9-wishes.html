@@ -41,9 +41,9 @@
         /* 🔄 BULLETPROOF VIEWPORT CONSTRAINT BOX FOR STICKER ROAMING */
         @keyframes safeStickerOrbit {
             0% { top: 12%; left: 8%; transform: scale(1) rotate(0deg); }
-            25% { top: 14%; left: 65%; transform: scale(1.05) rotate(6deg); }
-            50% { top: 72%; left: 66%; transform: scale(0.95) rotate(-6deg); }
-            75% { top: 64%; left: 10%; transform: scale(1.03) rotate(4deg); }
+            25% { top: 14%; left: 62%; transform: scale(1.05) rotate(6deg); }
+            50% { top: 58%; left: 66%; transform: scale(0.95) rotate(-6deg); }
+            75% { top: 52%; left: 10%; transform: scale(1.03) rotate(4deg); }
             100% { top: 12%; left: 8%; transform: scale(1) rotate(0deg); }
         }
         .animate-constrained-sticker {
@@ -86,12 +86,14 @@
             margin-top: 8px;
         }
 
-        /* 🔄 COMPACT SCREEN CONTAINER LIMITER FOR PERFECT VIEWPORT FIT */
+        /* 🔄 HARDWARE LOCKED SCREEN CONTAINER FOR PERFECT VIEWPORT FIT */
         .phone-container {
             width: 100%;
             max-width: 412px;
-            height: 100vh;
-            max-height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         #scrollableManifestPanel::-webkit-scrollbar { width: 0px; }
@@ -121,16 +123,17 @@
     </div>
 
     <!-- 📱 PURE PHONE RATIO CONTAINER BOUNDARY LIMITS PROTECTION -->
-    <div class="phone-container relative z-10 flex flex-col justify-between p-5 pb-6 overflow-hidden">
+    <div class="phone-container relative z-10 p-5 pt-3 pb-24 overflow-hidden">
         
         <!-- HEADER LAYOUT CONSOLE ARRAYS -->
-        <div class="text-center w-full premium-gpu pt-2 opacity-0" id="wishesHeader" style="transform: translateY(-20px);">
+        <div class="text-center w-full premium-gpu pt-1 opacity-0 mb-2" id="wishesHeader" style="transform: translateY(-20px); flex-shrink: 0;">
             <span class="text-[9px] font-extrabold tracking-[0.6em] text-pink-500 uppercase block mb-1">THE CELESTIAL VAULT</span>
             <h1 class="font-luxury font-black text-2xl text-white leading-tight tracking-tight">Blessings For My Queen 🌸</h1>
         </div>
 
         <!-- MAIN INTERACTIVE ROLLING TEXT DECK SCROLL PANEL CONTAINER -->
-        <div id="scrollableManifestPanel" class="w-full flex-1 rounded-[2.2rem] p-4 my-4 glass-wish-glow overflow-y-auto space-y-3.5 opacity-0 scale-95 premium-gpu relative scroll-smooth" style="-webkit-overflow-scrolling: touch; max-height: 55vh;">
+        <!-- Fixed max-height grid limits context box to hold line perfectly inside mobile heights -->
+        <div id="scrollableManifestPanel" class="w-full flex-1 rounded-[2.2rem] p-4 my-2 glass-wish-glow overflow-y-auto space-y-3.5 opacity-0 scale-95 premium-gpu relative scroll-smooth" style="-webkit-overflow-scrolling: touch; max-height: 52vh;">
             
             <!-- Wish Pod Card 01 -->
             <div onclick="expandWishPodCard(this, '#f43f5e')" class="p-4 rounded-2xl wish-pod-card premium-gpu cursor-pointer relative group">
@@ -139,7 +142,7 @@
                         <span class="text-lg filter drop-shadow-md">👑</span>
                         <h3 class="font-luxury font-black text-sm text-white tracking-wide">Sovereign Grace & Success</h3>
                     </div>
-                    <span class="expand-indicator text-[10px] text-slate-500 font-bold transition-transform duration-300">▲</span>
+                    <span class="expand-indicator text-[10px] text-slate-500 font-bold transition-transform duration-300">▼</span>
                 </div>
                 <div class="wish-content-wrapper">
                     <p class="text-[11px] text-slate-400 font-medium leading-relaxed border-t border-white/5 pt-2">
@@ -198,13 +201,13 @@
 
         </div>
 
-        <!-- 🚗 THE CRITICAL ROUTING FOOTER SYSTEM LINK -->
-        <div class="w-full text-center premium-gpu opacity-0 mb-2" id="wishesFooterBar">
-            <button onclick="navigateToGrandFinaleCutScene()" class="w-full bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 text-white font-extrabold tracking-[0.25em] text-[10px] py-4 rounded-xl shadow-xl shadow-pink-950/20 border border-white/10 active:scale-95 transition-all uppercase premium-gpu">
-                Advance To The Finale 🎂🚀
-            </button>
-        </div>
+    </div>
 
+    <!-- 🚗 THE FLOATING FIXED NEXT VIEWPORT FOOTER BUTTON DOCK (BUILT FOR ALL SMARTPHONES) -->
+    <div class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-[372px] text-center premium-gpu opacity-0 z-50" id="wishesFooterBar">
+        <button onclick="navigateToGrandFinaleCutScene()" class="w-full bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 text-white font-extrabold tracking-[0.25em] text-[10px] py-4 rounded-2xl shadow-xl shadow-black/50 border border-white/10 active:scale-95 transition-all uppercase premium-gpu">
+            Advance To The Finale 🎂🚀
+        </button>
     </div>
 
     <script>
@@ -253,7 +256,7 @@
         window.addEventListener('load', () => {
             gsap.to("#wishesHeader", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" });
             gsap.to("#scrollableManifestPanel", { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.15)", delay: 0.1 });
-            gsap.to("#wishesFooterBar", { opacity: 1, duration: 0.5, delay: 0.5 });
+            gsap.to("#wishesFooterBar", { opacity: 1, y: 0, duration: 0.5, delay: 0.5 });
 
             // Automatically open the very first card beautifully on load trigger
             setTimeout(() => {
@@ -288,6 +291,7 @@
         function navigateToGrandFinaleCutScene() {
             playSFX('sfxSuccess');
             gsap.to("#scrollableManifestPanel", { scale: 0.92, opacity: 0, y: 15, duration: 0.5, ease: "power3.in" });
+            gsap.to("#wishesFooterBar", { scale: 0.9, opacity: 0, duration: 0.4 });
             gsap.to("body", { 
                 opacity: 0, duration: 0.5, delay: 0.1,
                 onComplete: () => { window.location.href = "page10-finale.html"; } 
